@@ -6,7 +6,7 @@ TechNova is a fully responsive, enterprise-grade frontend application for a mode
 
 ## 🌐 Live Demo & Repository
 
-*   **Live Demo:** [https://your-deployed-url.com](https://your-deployed-url.com) *(Replace with your Netlify, Vercel, or GitHub Pages link)*
+*   **Live Demo:** [ https://asmabanahatti687-lab.github.io/Software-Company-Website2/]( https://asmabanahatti687-lab.github.io/Software-Company-Website2/) *(Replace with your Netlify, Vercel, or GitHub Pages link)*
 *   **GitHub Repository:** `https://github.com/your-username/technova-website.git`
 
 ---
