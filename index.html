@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechNova | Enterprise Software & AI Solutions</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Custom Stylesheet Connection -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 transition-colors duration-300 min-h-screen flex flex-col antialiased selection:bg-brand-500 selection:text-white">
+
+    <!-- TOP SYSTEM NOTIFICATION / SESSION BAR -->
+    <div id="session-banner" class="hidden bg-amber-500 text-slate-950 px-4 py-2 text-xs font-semibold text-center flex justify-between items-center z-50">
+        <span><i class="fa-solid fa-clock mr-2"></i> Active Session: Inactivity timeout in <span id="session-timer">15:00</span></span>
+        <button onclick="TechNovaAuth.extendSession()" class="underline hover:text-white transition">Extend Session</button>
+    </div>
+
+    <!-- MAIN APP HEADER -->
+    <header class="sticky top-0 z-40 w-full glass-panel border-b border-slate-200 dark:border-slate-800 transition-colors">
+        <!-- View Context Bar -->
+        <div class="bg-slate-900 text-slate-300 text-xs px-4 py-1.5 flex flex-wrap justify-between items-center border-b border-slate-800">
+            <div class="flex items-center space-x-3">
+                <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-brand-600 text-white">
+                    WD-SW-001
+                </span>
+                <span class="hidden sm:inline text-slate-400">TechNova Architecture Suite & Live Prototype</span>
+            </div>
+            <div class="flex items-center space-x-2">
+                <button onclick="switchMasterMode('preview')" id="btn-mode-preview" class="px-2.5 py-0.5 rounded bg-brand-600 text-white font-medium text-xs flex items-center gap-1 hover:bg-brand-700 transition">
+                    <i class="fa-solid fa-desktop text-xs"></i> Live Web App
+                </button>
+                <button onclick="switchMasterMode('files')" id="btn-mode-files" class="px-2.5 py-0.5 rounded bg-slate-800 text-slate-300 font-medium text-xs flex items-center gap-1 hover:bg-slate-700 transition">
+                    <i class="fa-solid fa-folder-tree text-xs"></i> Source Code Explorer (15 Files)
+                </button>
+            </div>
+        </div>
+
+        <!-- Primary App Nav -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                
+                <!-- Logo -->
+                <div class="flex items-center gap-3 cursor-pointer" onclick="navigateTo('home')">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-indigo-500 flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-brand-500/30">
+                        <i class="fa-solid fa-cube"></i>
+                    </div>
+                    <div>
+                        <span class="text-xl font-extrabold tracking-tight bg-gradient-to-r from-brand-600 to-indigo-600 dark:from-brand-500 dark:to-indigo-400 bg-clip-text text-transparent">TechNova</span>
+                        <span class="block text-[10px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">Software Solutions</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden lg:flex items-center space-x-1 font-medium text-sm">
+                    <button onclick="navigateTo('home')" class="nav-link px-3 py-2 rounded-lg text-slate-700 dark:text-slate-200 hover:text-brand-600 dark:hover:text-brand-400 transition" data-view="home">Home</button>
+                    <button onclick="navigateTo('about')" class="nav-link px-3 py-2 rounded-lg text-slate-700 dark:text-slate-200 hover:text-brand-600 dark:hover:text-brand-400 transition" data-view="about">About Us</button>
+                    <button onclick="navigateTo('services')" class="nav-link px-3 py-2 rounded-lg text-slate-700 dark:text-slate-200 hover:text-brand-600 dark:hover:text-brand-400 transition" data-view="services">Services</button>
+                    <button onclick="navigateTo('portfolio')" class="nav-link px-3 py-2 rounded-lg text-slate-700 dark:text-slate-200 hover:text-brand-600 dark:hover:text-brand-400 transition" data-view="portfolio">Portfolio</button>
+                    <button onclick="navigateTo('blog')" class="nav-link px-3 py-2 rounded-lg text-slate-700 dark:text-slate-200 hover:text-brand-600 dark:hover:text-brand-400 transition" data-view="blog">Blog</button>
+                    <button onclick="navigateTo('careers')" class="nav-link px-3 py-2 rounded-lg text-slate-700 dark:text-slate-200 hover:text-brand-600 dark:hover:text-brand-400 transition" data-view="careers">Careers</button>
+                    <button onclick="navigateTo('contact')" class="nav-link px-3 py-2 rounded-lg text-slate-700 dark:text-slate-200 hover:text-brand-600 dark:hover:text-brand-400 transition" data-view="contact">Contact</button>
+                </nav>
+
+                <!-- Action Controls -->
+                <div class="hidden sm:flex items-center space-x-3">
+                    <!-- Dark Mode Toggle -->
+                    <button id="theme-toggle-btn" onclick="toggleDarkMode()" class="p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition" title="Toggle Theme">
+                        <i id="theme-toggle-icon" class="fa-solid fa-moon"></i>
+                    </button>
+
+                    <!-- Auth State Button -->
+                    <div id="nav-auth-container">
+                        <button onclick="navigateTo('login')" class="px-4 py-2 rounded-xl text-sm font-semibold bg-brand-600 hover:bg-brand-700 text-white shadow-md shadow-brand-500/20 transition">
+                            Client Portal
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Mobile Hamburger Button -->
+                <div class="flex items-center space-x-2 lg:hidden">
+                    <button id="theme-toggle-mobile" onclick="toggleDarkMode()" class="p-2 rounded-lg border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300">
+                        <i class="fa-solid fa-moon"></i>
+                    </button>
+                    <button onclick="toggleMobileMenu()" class="p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none">
+                        <i class="fa-solid fa-bars text-lg"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Drawer Menu -->
+        <div id="mobile-menu" class="hidden lg:hidden border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 px-4 pt-3 pb-6 space-y-2">
+            <button onclick="navigateTo('home'); toggleMobileMenu()" class="block w-full text-left px-3 py-2.5 rounded-lg text-slate-800 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-800 font-medium">Home</button>
+            <button onclick="navigateTo('about'); toggleMobileMenu()" class="block w-full text-left px-3 py-2.5 rounded-lg text-slate-800 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-800 font-medium">About Us</button>
+            <button onclick="navigateTo('services'); toggleMobileMenu()" class="block w-full text-left px-3 py-2.5 rounded-lg text-slate-800 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-800 font-medium">Services</button>
+            <button onclick="navigateTo('portfolio'); toggleMobileMenu()" class="block w-full text-left px-3 py-2.5 rounded-lg text-slate-800 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-800 font-medium">Portfolio</button>
+            <button onclick="navigateTo('blog'); toggleMobileMenu()" class="block w-full text-left px-3 py-2.5 rounded-lg text-slate-800 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-800 font-medium">Blog</button>
+            <button onclick="navigateTo('careers'); toggleMobileMenu()" class="block w-full text-left px-3 py-2.5 rounded-lg text-slate-800 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-800 font-medium">Careers</button>
+            <button onclick="navigateTo('contact'); toggleMobileMenu()" class="block w-full text-left px-3 py-2.5 rounded-lg text-slate-800 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-800 font-medium">Contact</button>
+            <div id="mobile-nav-auth" class="pt-3 border-t border-slate-200 dark:border-slate-800">
+                <button onclick="navigateTo('login'); toggleMobileMenu()" class="w-full py-2.5 rounded-xl font-semibold bg-brand-600 text-white text-center">Login / Register</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- TOAST NOTIFICATION CONTAINER -->
+    <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+    <!-- MAIN CONTENT VIEW AREA (PREVIEW MODE) -->
+    <main id="app-view-container" class="flex-grow">
+        <!-- Views dynamically injected via script.js -->
+    </main>
+
+    <!-- SOURCE CODE FILE TREE EXPLORER (FILES MODE) -->
+    <section id="app-files-container" class="hidden flex-grow max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8">
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl flex flex-col md:flex-row h-[750px]">
+            <!-- Sidebar File Tree -->
+            <div class="w-full md:w-72 bg-slate-950 border-r border-slate-800 p-4 flex flex-col">
+                <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3 flex items-center justify-between">
+                    <span>Project Workspace</span>
+                    <span class="bg-brand-900 text-brand-300 text-[10px] px-2 py-0.5 rounded">15 Files</span>
+                </h3>
+                <div class="overflow-y-auto flex-grow custom-scrollbar space-y-1 text-sm text-slate-300" id="file-tree-list">
+                    <!-- Javascript populates file tree links -->
+                </div>
+            </div>
+
+            <!-- Code Viewing Console -->
+            <div class="flex-grow flex flex-col bg-slate-900">
+                <div class="bg-slate-950/60 border-b border-slate-800 px-6 py-3 flex justify-between items-center">
+                    <div>
+                        <span id="current-file-path" class="font-mono text-sm font-semibold text-brand-400">index.html</span>
+                        <p id="current-file-title" class="text-xs text-slate-400">Main Application Shell View</p>
+                    </div>
+                    <button onclick="copyCurrentFileCode()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium flex items-center gap-1.5 transition">
+                        <i class="fa-regular fa-copy"></i> Copy File Content
+                    </button>
+                </div>
+                <div class="flex-grow p-6 overflow-auto custom-scrollbar font-mono text-xs bg-slate-950 text-slate-200">
+                    <pre><code id="file-code-display">Select a file from the left navigation sidebar to inspect its full source code.</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER SECTION -->
+    <footer class="bg-slate-900 border-t border-slate-800 text-slate-400 text-sm mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
+                <!-- Col 1: Brand Info -->
+                <div class="lg:col-span-2 space-y-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-lg bg-brand-600 flex items-center justify-center text-white font-bold">
+                            <i class="fa-solid fa-cube text-sm"></i>
+                        </div>
+                        <span class="text-xl font-bold text-white">TechNova</span>
+                    </div>
+                    <p class="text-slate-400 leading-relaxed max-w-sm">
+                        Architecting cutting-edge cloud infrastructure, custom enterprise software solutions, and machine learning models for industry leaders globally.
+                    </p>
+                    <div class="flex space-x-4 pt-2">
+                        <a href="#" class="w-9 h-9 rounded-lg bg-slate-800 hover:bg-brand-600 text-slate-300 hover:text-white flex items-center justify-center transition" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="#" class="w-9 h-9 rounded-lg bg-slate-800 hover:bg-brand-600 text-slate-300 hover:text-white flex items-center justify-center transition" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="#" class="w-9 h-9 rounded-lg bg-slate-800 hover:bg-brand-600 text-slate-300 hover:text-white flex items-center justify-center transition" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+                        <a href="#" class="w-9 h-9 rounded-lg bg-slate-800 hover:bg-brand-600 text-slate-300 hover:text-white flex items-center justify-center transition" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                    </div>
+                </div>
+
+                <!-- Col 2: Navigation Links -->
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2.5">
+                        <li><button onclick="navigateTo('about')" class="hover:text-brand-400 transition">Company History</button></li>
+                        <li><button onclick="navigateTo('services')" class="hover:text-brand-400 transition">Our Services</button></li>
+                        <li><button onclick="navigateTo('portfolio')" class="hover:text-brand-400 transition">Case Studies</button></li>
+                        <li><button onclick="navigateTo('blog')" class="hover:text-brand-400 transition">Tech Insights</button></li>
+                        <li><button onclick="navigateTo('careers')" class="hover:text-brand-400 transition">Careers <span class="text-[10px] bg-brand-900 text-brand-300 px-1.5 py-0.5 rounded ml-1">Hiring</span></button></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Solutions Links -->
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Solutions</h4>
+                    <ul class="space-y-2.5">
+                        <li><button onclick="navigateTo('services')" class="hover:text-brand-400 transition">Cloud Engineering</button></li>
+                        <li><button onclick="navigateTo('services')" class="hover:text-brand-400 transition">AI & Machine Learning</button></li>
+                        <li><button onclick="navigateTo('services')" class="hover:text-brand-400 transition">Custom Web Apps</button></li>
+                        <li><button onclick="navigateTo('services')" class="hover:text-brand-400 transition">Mobile Development</button></li>
+                        <li><button onclick="navigateTo('services')" class="hover:text-brand-400 transition">Cybersecurity QA</button></li>
+                    </ul>
+                </div>
+
+                <!-- Col 4: Newsletter -->
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Stay Informed</h4>
+                    <p class="text-xs text-slate-400 mb-3">Subscribe to our engineering & AI tech dispatch.</p>
+                    <form onsubmit="handleNewsletterSubmit(event)" class="space-y-2">
+                        <input type="email" id="newsletter-email" required placeholder="Enter work email" class="w-full px-3 py-2 rounded-lg bg-slate-800 border border-slate-700 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-brand-500">
+                        <button type="submit" class="w-full py-2 bg-brand-600 hover:bg-brand-700 text-white rounded-lg font-medium text-xs transition">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="pt-8 border-t border-slate-800 flex flex-col sm:flex-row justify-between items-center text-xs text-slate-500">
+                <p>&copy; 2026 TechNova Inc. Task ID: WD-SW-001. All rights reserved.</p>
+                <div class="flex space-x-6 mt-4 sm:mt-0">
+                    <a href="#" class="hover:text-slate-400">Privacy Policy</a>
+                    <a href="#" class="hover:text-slate-400">Terms of Service</a>
+                    <a href="#" class="hover:text-slate-400">Security Architecture</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCROLL TO TOP BUTTON -->
+    <button id="scroll-top-btn" onclick="scrollToTop()" class="fixed bottom-6 right-6 z-40 p-3 rounded-full bg-brand-600 text-white shadow-xl hover:bg-brand-700 transition duration-300 opacity-0 pointer-events-none transform translate-y-2">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+    <!-- External JavaScript File Connection -->
+    <script src="script.js"></script>
+</body>
+</html>
